@@ -2,8 +2,12 @@ const { verifyJwt } = require("../Utils/Jwt");
 
 const tokenChecker = (req, res, next) => {
   const token = req.headers["authorization"];
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Access denied. No token provided." });
+  }
   const splitToken = token.split(" ")[1];
-
   if (!splitToken) {
     return res
       .status(401)
@@ -11,7 +15,6 @@ const tokenChecker = (req, res, next) => {
   }
 
   try {
-    console.log("🚀 ~ tokenChecker ~ token:", splitToken);
     const decoded = verifyJwt(splitToken);
     if (!decoded) {
       return res.status(401).json({ message: "Token is invalid." });
