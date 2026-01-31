@@ -1,4 +1,5 @@
 const ProductModel = require("../../Models/ProductModel");
+const validateObjectId = require("../../Utils/validation");
 
 const updateProduct = async (req, res) => {
   try {
@@ -10,6 +11,8 @@ const updateProduct = async (req, res) => {
         message: "Product ID is required",
       });
     }
+
+    if (!validateObjectId(productId, res)) return;
 
     if (!req.body) {
       return res.status(400).json({

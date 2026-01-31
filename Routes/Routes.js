@@ -6,6 +6,7 @@ const getMe = require("../Controllers/Auth/getMe");
 const addProduct = require("../Controllers/Product/AddProduct");
 const updateProduct = require("../Controllers/Product/UpdateProduct");
 const getProduct = require("../Controllers/Product/GetProduct");
+const deleteProduct = require("../Controllers/Product/DeleteProduct");
 
 // post APIs
 routes.post("/login", loginUser);
@@ -17,5 +18,8 @@ routes.put("/update-product/:id", tokenChecker, updateProduct);
 // get APIs
 routes.get("/get-me", tokenChecker, getMe);
 routes.get("/get-product", tokenChecker, getProduct);
+
+// delete APIs
+routes.delete("/delete-product/:id", tokenChecker, deleteProduct);
  
 module.exports = { routes };

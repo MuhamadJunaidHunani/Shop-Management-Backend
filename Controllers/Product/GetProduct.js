@@ -1,9 +1,12 @@
 const ProductModel = require("../../Models/ProductModel");
+const validateObjectId = require("../../Utils/validation");
 
 const getProduct = async (req, res) => {
   try {
     const { id } = req.query;
-
+    if (id) {
+      if (!validateObjectId(id, res)) return;
+    }
     const data = id
       ? await ProductModel.findById(id)
       : await ProductModel.find().sort({ createdAt: -1 });
